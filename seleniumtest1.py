@@ -10,7 +10,7 @@ driver.maximize_window()
 #2. Akceptacja plikow cookies
 cookies_button = driver.find_element('id','didomi-notice-agree-button')
 cookies_button.click()
-time.sleep(5)
+time.sleep(4)
 
 #3.Przycisk przekierowania na strone
 forward_button = driver.find_element('xpath','/html/body/div[1]/div[1]/div/button')
@@ -33,7 +33,7 @@ password_field = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div
 password_field.send_keys('dowolne hasło')
 #haslo musi zawierac jedna wielka litere, co najmniej jedna cyfre i minimum 8 znakow
 
-time.sleep(5)
+time.sleep(3)
 register1_button = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[1]/div/div[3]/div')
 register1_button.click()
 
