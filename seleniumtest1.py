@@ -1,5 +1,8 @@
 from selenium import webdriver
 import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 #1. Otwarcie strony internetowej w przegladarce Chrome
 driver = webdriver.Chrome()
@@ -15,7 +18,7 @@ time.sleep(4)
 #3.Przycisk przekierowania na strone
 forward_button = driver.find_element('xpath','/html/body/div[1]/div[1]/div/button')
 forward_button.click()
-time.sleep(4)
+time.sleep(2)
 
 #4. Przejscie do rejestracji
 login_button = driver.find_element('id','main-header_login-link')
@@ -26,11 +29,11 @@ time.sleep(3)
 
 #5. Wprowadzenie danych konta cz.1
 login_field = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[1]/div/div[1]/div[1]/input')
-login_field.send_keys('dowolny login')
+login_field.send_keys('wojtibix')
 email_field = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[1]/div/div[1]/div[2]/input')
-email_field.send_keys('dowolny mail')
+email_field.send_keys('wojtibi@essa.com')
 password_field = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[1]/div/div[1]/div[3]/input')
-password_field.send_keys('dowolne hasło')
+password_field.send_keys('Jebla1234')
 #haslo musi zawierac jedna wielka litere, co najmniej jedna cyfre i minimum 8 znakow
 
 time.sleep(3)
@@ -46,8 +49,8 @@ gender_button = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[
 gender_button.click()
 date_button = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[2]/div/div[1]/div[3]/div/div/div[1]/button')
 date_button.click()
-time.sleep(3)
-year_button = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[2]/div/div[1]/div[3]/div/div/div[2]/div/div/div[2]/div[2]/button[4]')
+wait = WebDriverWait(driver, 10)
+year_button = wait.until(EC.element_to_be_clickable(('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[2]/div/div[1]/div[3]/div/div/div[2]/div/div/div[2]/div[2]/button[4]')))
 year_button.click()
 checkbox = driver.find_element('xpath','//*[@id="site"]/div[2]/div/div/div[1]/div/form/fieldset[2]/div/div[1]/div[4]/div[1]/div/div[1]/label[1]/div')
 checkbox.click()
