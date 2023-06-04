@@ -23,6 +23,7 @@ class RejestracjaNowegoUzytkownika(unittest.TestCase):
         self.driver.find_element(By.ID, 'didomi-notice-agree-button').click()
         self.driver.implicitly_wait(20)
 
+    ### Test z błędną nazwą użytkownika ###
     def testInvalidUsername(self):
 
         login_button = self.driver.find_element(By.ID, 'main-header_login-link')
@@ -45,6 +46,7 @@ class RejestracjaNowegoUzytkownika(unittest.TestCase):
         else:
             print('FAIL')
 
+    ### Test z błędnym adresem email ###
     def testInvalidEmail(self):
 
         login_button = self.driver.find_element(By.ID, 'main-header_login-link')
@@ -67,6 +69,7 @@ class RejestracjaNowegoUzytkownika(unittest.TestCase):
         else:
             print('FAIL')
 
+    ### Test z błędnym hasłem ###
     def testInvalidPassword(self):
 
         login_button = self.driver.find_element(By.ID, 'main-header_login-link')
