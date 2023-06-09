@@ -3,6 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from time import sleep
 from selenium.webdriver.support.relative_locator import locate_with
+from selenium.common.exceptions import NoSuchElementException
 
 # DANE TESTOWE
 search = "test"
@@ -16,18 +17,20 @@ class SearchFunctionTest(unittest.TestCase):
         self.driver.get("https://www.filmweb.pl")
         self.driver.maximize_window()
         self.driver.find_element(By.ID, 'didomi-notice-agree-button').click()
-        self.driver.implicitly_wait(20)
+        self.driver.implicitly_wait(5)
 
     ### Testy sprawdzające poprawność działania wyszukiwarki ###
     def testSearchingByText(self):
-        skip_button = self.driver.find_element(By.XPATH, '//button[@class="ws__skipButton"]')
-        search_field = self.driver.find_element(By.ID, 'inputSearch')
-        if skip_button.is_enabled():
-            skip_button.click()
-            search_field.click()
-        else:
-            search_field.click()
 
+        try:
+            skip_button = self.driver.find_element(By.XPATH, '//button[@class="ws__skipButton"]')
+            skip_button.click()
+
+        except NoSuchElementException:
+            print("(NoIntroWindow)")
+
+        search_field = self.driver.find_element(By.ID, 'inputSearch')
+        search_field.click()
         search_field2 = self.driver.find_element(By.XPATH, '//input[contains(@class,"form__input--empty")]')
         search_field2.click()
         search_field2.send_keys(search)
