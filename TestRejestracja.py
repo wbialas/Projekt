@@ -10,8 +10,6 @@ invalid_email = "test.pl"
 password = "ABCabc123?"
 invalid_password_short = "Abcd1@@"
 
-
-
 class NewUserRegistration(unittest.TestCase):
 
     def setUp(self):
@@ -45,10 +43,8 @@ class NewUserRegistration(unittest.TestCase):
         sleep(2)
 
     def testInvalidPasswordShort(self):
-        account_button = self.driver.find_element(By.XPATH, '//li[@class="item item--account"]')
-        account_button.click()
-        register_button = self.driver.find_element(By.XPATH, '//button[@data-id="panelRegistrationTeaser-register"]')
-        register_button.click()
+        register_shortcut_button = self.driver.find_element(By.XPATH, '//a[@data-id="header-registrationLink"]')
+        register_shortcut_button.click()
         email_input = self.driver.find_element(By.ID, 'register-userData-email')
         email_input.send_keys(email)
         password_input = self.driver.find_element(By.ID, 'register-userData-password')
@@ -74,6 +70,25 @@ class NewUserRegistration(unittest.TestCase):
         self.assertEqual("Co najmniej 8 znaków", invalid.text, "Błąd")
         sleep(2)
 
+    def testInvalidNoCheckbox(self):
+        register_shortcut_button = self.driver.find_element(By.XPATH, '//a[@data-id="header-registrationLink"]')
+        register_shortcut_button.click()
+        email_input = self.driver.find_element(By.ID, 'register-userData-email')
+        email_input.send_keys(email)
+        password_input = self.driver.find_element(By.ID, 'register-userData-password')
+        password_input.send_keys(password)
+        register_account_btn = self.driver.find_element(By.XPATH, '//button[@data-id="register-userData-submit"]')
+        register_account_btn.click()
+
+        # 1. sprawdzenie, czy treść komunikatu się zgadza
+        no_checkbox = self.driver.find_element(By.XPATH, '//div[@class="em-content"]')
+        self.assertEqual("To pole jest wymagane.", no_checkbox.text, "Incorrect information")
+        # 2. sprawdzenie, czy komunikat jest zlokalizowany pod checkboxem
+        checkbox = self.driver.find_element(By.XPATH, '//label[@class="checkbox"]')
+        error_locator = locate_with(By.XPATH, '//div[@class="em-content"]').below(checkbox)
+        error_location = self.driver.find_element(error_locator)
+        self.assertEqual(no_checkbox.id, error_location.id)
+        sleep(2)
 
     def tearDown(self):
         self.driver.quit()
