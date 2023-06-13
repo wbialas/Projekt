@@ -19,6 +19,7 @@ class NewUserRegistration(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//button[@class="button button--secondary"][@type="button"]').click()
         self.driver.implicitly_wait(20)
 
+    ### TEST REJESTRACJI W PRZYPADKU BŁĘDNEGO ADRESU EMAIL ###
     def testInvalidEmail(self):
         account_button = self.driver.find_element(By.XPATH, '//li[@class="item item--account"]')
         account_button.click()
@@ -35,13 +36,14 @@ class NewUserRegistration(unittest.TestCase):
 
         # 1. sprawdzenie, czy treść komunikatu się zgadza
         email_error = self.driver.find_element(By.XPATH, '//div[@class="em-content"]')
-        self.assertEqual("Proszę podać prawidłowy adres e-mail.", email_error.text, "Błędny komuniukat")
+        self.assertEqual("Proszę podać prawidłowy adres e-mail.", email_error.text, "Wrong information")
         # 2. sprawdzenie, czy komunikat jest zlokalizowany pod polem tekstowym emaila
         error_locator = locate_with(By.XPATH, '//div[@class="em-content"]').below(email_input)
         error_location = self.driver.find_element(error_locator)
         self.assertEqual(email_error.id, error_location.id)
         sleep(2)
 
+    ### TEST REJESTRACJI W PRZYPADKU ZBYT KRÓTKIEGO HASŁA ###
     def testInvalidPasswordShort(self):
         register_shortcut_button = self.driver.find_element(By.XPATH, '//a[@data-id="header-registrationLink"]')
         register_shortcut_button.click()
@@ -56,7 +58,7 @@ class NewUserRegistration(unittest.TestCase):
 
         # 1. sprawdzenie, czy treść komunikatu się zgadza
         password_error_short = self.driver.find_element(By.XPATH, '//div[@class="em-content"]')
-        self.assertEqual("To pole musi zawierać co najmniej 8 znaków.", password_error_short.text, "Błędny komuniukat")
+        self.assertEqual("To pole musi zawierać co najmniej 8 znaków.", password_error_short.text, "Wrong information")
         # 2. sprawdzenie, czy komunikat jest zlokalizowany pod polem tekstowym hasła
         error_locator = locate_with(By.XPATH, '//div[@class="em-content"]').below(password_input)
         error_location = self.driver.find_element(error_locator)
@@ -70,6 +72,7 @@ class NewUserRegistration(unittest.TestCase):
         self.assertEqual("Co najmniej 8 znaków", invalid.text, "Błąd")
         sleep(2)
 
+    ### TEST REJESTRACJI W PRZYPADKU NIE ZAZNACZENIA CHECHBOXA ###
     def testNoCheckbox(self):
         register_shortcut_button = self.driver.find_element(By.XPATH, '//a[@data-id="header-registrationLink"]')
         register_shortcut_button.click()
@@ -82,7 +85,7 @@ class NewUserRegistration(unittest.TestCase):
 
         # 1. sprawdzenie, czy treść komunikatu się zgadza
         no_checkbox = self.driver.find_element(By.XPATH, '//div[@class="em-content"]')
-        self.assertEqual("To pole jest wymagane.", no_checkbox.text, "Incorrect information")
+        self.assertEqual("To pole jest wymagane.", no_checkbox.text, "Wrong information")
         # 2. sprawdzenie, czy komunikat jest zlokalizowany pod checkboxem
         checkbox = self.driver.find_element(By.XPATH, '//label[@class="checkbox"]')
         error_locator = locate_with(By.XPATH, '//div[@class="em-content"]').below(checkbox)

@@ -59,7 +59,7 @@ class LoginTest(unittest.TestCase):
         self.assertNotEqual("https://www.maxizoo.pl/my-account/", URL, "Wrong URL")
         # 2. Weryfikacja, czy treść komunikatu o błędzie jest poprawna
         error = self.driver.find_element(By.XPATH, '//div[@class="action-box action-box--error"]/div[2]')
-        self.assertEqual("Adres e-mail lub hasło są nieprawidłowe. Proszę spróbować ponownie.", error.text, "Błąd")
+        self.assertEqual("Adres e-mail lub hasło są nieprawidłowe. Proszę spróbować ponownie.", error.text, "Wrong information")
         # 3. Sprawdzenie, czy komunikat błędu znajduje się nad polem do wpisania adresu e-mail
         error_locator = locate_with(By.XPATH, '//div[@class="action-box action-box--error"]/div[2]').above(email_input)
         error_location = self.driver.find_element(error_locator)
