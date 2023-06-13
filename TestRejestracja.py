@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 from time import sleep
 from selenium.webdriver.support.relative_locator import locate_with
 
-# DANE TESTOWEf8f
+# DANE TESTOWE
 email = "test1@test.pl"
 invalid_email = "test.pl"
 password = "ABCabc123?"
@@ -70,7 +70,7 @@ class NewUserRegistration(unittest.TestCase):
         self.assertEqual("Co najmniej 8 znaków", invalid.text, "Błąd")
         sleep(2)
 
-    def testInvalidNoCheckbox(self):
+    def testNoCheckbox(self):
         register_shortcut_button = self.driver.find_element(By.XPATH, '//a[@data-id="header-registrationLink"]')
         register_shortcut_button.click()
         email_input = self.driver.find_element(By.ID, 'register-userData-email')
