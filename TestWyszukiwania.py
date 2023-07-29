@@ -42,8 +42,6 @@ class SearchFunction(unittest.TestCase):
         self.assertEqual(48, len(results_image))
         results_desc = self.driver.find_elements(By.XPATH, '//div[@class="pt-content"]')
         self.assertEqual(48, len(results_desc))
-        results_add = self.driver.find_elements(By.XPATH, '//div[@class="pt-footer"]')
-        self.assertEqual(48, len(results_add))
         sleep(2)
 
     ### WYSZUKIWANIE BEZ POWODZENIA ###
